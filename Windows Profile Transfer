@@ -1,45 +1,58 @@
-# This Orginal Script was first found on https://community.spiceworks.com/topic/1974854-powershell-script-for-copying-user-profile-to-new-machine
-# User Gungnir came up with the bulk of this.
-# Gungnir can be found https://community.spiceworks.com/people/gungnir
-
+#User Profile Transfer
 
 $FoldersToCopy = @(
     'Desktop'
-    'Downloads'
-    'Favorites'
-    'Documents'
-    'Pictures'
     'Videos'
-    'AppData\Local\Google'
+    # Microsoft Edge Favorites
+    'AppData\Local\Packages\Microsoft.MicrosoftEdge_8wekyb3d8bbwe\AC\MicrosoftEdge\User\Default\Favorites'
+    # Outlook Signatures
+    'AppData\Roaming\Microsoft\Signatures'
+    # Google Chrome Favorites
+    'AppData\Local\Google\Chrome\User Data\Default'
+
+
     )
 
-$ConfirmComp = $null
+$ConfirmComp1 = $null
+$ConfirmComp2 = $null
 $ConfirmUser = $null
 
-while( $ConfirmComp -ne 'y' ){
-    $Computer = Read-Host -Prompt 'Enter the computer to copy from'
+while( $ConfirmComp1 -ne 'y' ){
+    $FromComputer = Read-Host -Prompt 'Enter the computer to copy from'
 
-    if( -not ( Test-Connection -ComputerName $Computer -Count 2 -Quiet ) ){
-        Write-Warning "$Computer is not online. Please enter another computer name."
+    if( -not ( Test-Connection -ComputerName $FromComputer -Count 2 -Quiet ) ){
+        Write-Warning "$FromComputer is not online. Please enter another computer name."
         continue
         }
 
-    $ConfirmComp = Read-Host -Prompt "The entered computer name was:`t$Computer`r`nIs this correct? (y/n)"
+    $ConfirmComp1 = Read-Host -Prompt "The entered computer name was:`t$FromComputer`r`nIs this correct? (y/n)"
+    }
+
+    while( $ConfirmComp2 -ne 'y' ){
+    $ToComputer = Read-Host -Prompt 'Enter the computer to copy to'
+
+    if( -not ( Test-Connection -ComputerName $ToComputer -Count 2 -Quiet ) ){
+        Write-Warning "$ToComputer is not online. Please enter another computer name."
+        continue
+        }
+
+    $ConfirmComp2 = Read-Host -Prompt "The entered computer name was:`t$ToComputer`r`nIs this correct? (y/n)"
     }
 
 while( $ConfirmUser -ne 'y' ){
     $User = Read-Host -Prompt 'Enter the user profile to copy from'
 
-    if( -not ( Test-Path -Path "\\$Computer\c$\Users\$User" -PathType Container ) ){
-        Write-Warning "$User could not be found on $Computer. Please enter another user profile."
+    if( (-not ( Test-Path -Path "\\$FromComputer\c$\Users\$User" -PathType Container)) -and (-not (Test-Path -Path "\\$ToComputer\c$\Users\$User" -PathType Container))){
+        Write-Warning "$User could not be found on $FromComputer. Please enter another user profile."
         continue
         }
 
     $ConfirmUser = Read-Host -Prompt "The entered user profile was:`t$User`r`nIs this correct? (y/n)"
     }
 
-$SourceRoot      = "\\$Computer\c$\Users\$User"
-$DestinationRoot = "C:\Users\$User"
+$SourceRoot      = "\\$FromComputer\c$\Users\$User"
+#$DestinationRoot = "C:\Users\$User"
+$DestinationRoot = "\\$ToComputer\c$\Users\$User"
 
 foreach( $Folder in $FoldersToCopy ){
     $Source      = Join-Path -Path $SourceRoot -ChildPath $Folder
@@ -50,5 +63,5 @@ foreach( $Folder in $FoldersToCopy ){
         continue
         }
 
-    Robocopy.exe $Source $Destination /E /IS /NP /NFL
+    Robocopy.exe $Source $Destination /E /IS /NP /NFL /MT 
     }
