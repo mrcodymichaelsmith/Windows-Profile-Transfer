@@ -1,37 +1,9 @@
-## Welcome to GitHub Pages
+## Windows Profile Transfer
 
-You can use the [editor on GitHub](https://github.com/mrcodymichaelsmith/Windows-Profile-Transfer/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+Hay, you, do you need to build a new computer for a user but they want all of there desktop files, and favorites, and email signatures and pictures and downloads and literally everything else on their computer where they saved something where they were not suppose to? Well, do I have a tool for you.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+This PowerShell script works by copying most of that stuff from one computer to another. To make it work you must first have them log into the new PC. Then with both computers powered on and connected to the same network, open an admin PowerShell prompt. Run the script, enter the hostname of the first computer. Then enter the hostname of the second computer, then enter the username of the profile. This script will copy all items on the desktop, videos, outlook signatures, their MS Edge Favorites, and their chrome favorites. 
 
-### Markdown
+I would love some comments on how to improve it. 
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [Basic writing and formatting syntax](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/mrcodymichaelsmith/Windows-Profile-Transfer/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+And really quick, Yes, there is a better way to do this from an infrastructure point of view. With that said, I do not have control over the infrastructure. I use this script to make my life easier. I hope it makes your life easier too. 
