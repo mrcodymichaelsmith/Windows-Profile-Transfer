@@ -1,4 +1,4 @@
-#User Profile Transfer
+# User Profile Transfer
 
 $FoldersToCopy = @(
     'Desktop'
@@ -12,11 +12,8 @@ $FoldersToCopy = @(
     'AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar'
     # Google Chrome Favorites
     'AppData\Local\Google\Chrome\User Data\Default'
+)
 
-
-
-
-    )
 # Source Computer 
 $ConfirmComp1 = $null
 # Destination Computer
@@ -31,10 +28,10 @@ while( $ConfirmComp1 -ne 'y' ){
     if( -not ( Test-Connection -ComputerName $FromComputer -Count 2 -Quiet ) ){
         Write-Warning "$FromComputer is not online. Please enter another computer name."
         continue
-        }
+    }
 
     $ConfirmComp1 = Read-Host -Prompt "The entered computer name was:`t$FromComputer`r`nIs this correct? (y/n)"
-    }
+}
 
 # Checks to see if the destination computer is online
 while( $ConfirmComp2 -ne 'y' ){
@@ -43,10 +40,10 @@ while( $ConfirmComp2 -ne 'y' ){
     if( -not ( Test-Connection -ComputerName $ToComputer -Count 2 -Quiet ) ){
         Write-Warning "$ToComputer is not online. Please enter another computer name."
         continue
-        }
+    }
 
     $ConfirmComp2 = Read-Host -Prompt "The entered computer name was:`t$ToComputer`r`nIs this correct? (y/n)"
-    }
+}
 
 # Checks to make sure the users profile already exist on both computers.
 # You can run this without this check but it causes strange errors. 
@@ -57,17 +54,16 @@ while( $ConfirmUser -ne 'y' ){
     if( (-not ( Test-Path -Path "\\$FromComputer\c$\Users\$User" -PathType Container)) -and (-not (Test-Path -Path "\\$ToComputer\c$\Users\$User" -PathType Container))){
         Write-Warning "$User could not be found on $FromComputer. Please enter another user profile."
         continue
-        }
+    }
 
     $ConfirmUser = Read-Host -Prompt "The entered user profile was:`t$User`r`nIs this correct? (y/n)"
-    }
+}
 
 # Setting the file Path variables. 
 $SourceRoot      = "\\$FromComputer\c$\Users\$User"
-#$DestinationRoot = "C:\Users\$User"
 $DestinationRoot = "\\$ToComputer\c$\Users\$User"
 
-# This piece of code acaully transfers the profile. 
+# This piece of code actually transfers the profile. 
 foreach( $Folder in $FoldersToCopy ){
     $Source      = Join-Path -Path $SourceRoot -ChildPath $Folder
     $Destination = Join-Path -Path $DestinationRoot -ChildPath $Folder
@@ -75,7 +71,6 @@ foreach( $Folder in $FoldersToCopy ){
     if( -not ( Test-Path -Path $Source -PathType Container ) ){
         Write-Warning "Could not find path`t$Source"
         continue
-        }
-
-    Robocopy.exe $Source $Destination /E /IS /NP /NFL /MT 
     }
+
+    robocopy.exe $Source $Destination /E /IS /NP /NFL
