@@ -2,12 +2,12 @@
 <html lang="en">
   <body>
     <h1>User Profile Transfer Tool</h1>
-    <p>This tool is a PowerShell script that can be used to transfer user profiles from one computer to another. It is designed to help IT professionals quickly and easily move user data from an old computer to a new one, or to transfer user data between two computers.</p>
+    <p>This tool is a PowerShell script that can be used to transfer a user profiles from one computer to another. It is designed to help IT professionals to quickly and easily move user data from an old computer to a new one, or to transfer user data between two computers. NOTE: the user must have logged into the new computer BEFORE running this. </p>
     <h2>Getting Started</h2>
     <ol>
       <li>Clone or download the User_Profile_Transfer.ps1 file to your local computer.</li>
       <li>Open PowerShell ISE or PowerShell console with administrative privileges.</li>
-      <li>TRun the script by typing the file path or using the "Run Script" button.</li>
+      <li>Run the script by typing the file path or using the "Run Script" button.</li>
     </ol>
     <h2>How to Use</h2>
     <ol>
@@ -29,10 +29,9 @@
     <h2>What I would like to do Next</h2>
     <ul>
       <li>Automatically Set Outlook Settings</li>
-      <li>Automatically Set Defauly Apps</li>
+      <li>Automatically Set Default Apps</li>
       <li>Automatically rerun Failed programs in Software Center/li>
-      <li>Automatically Set Defauly Apps</li>
-      <li>Automatically Set Defauly Apps</li>
+      <li>Automatically Find the exact directory bookmarks are saved in. </li>
     </ul>
     </body>
 </html>
