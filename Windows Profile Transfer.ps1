@@ -74,3 +74,4 @@ foreach( $Folder in $FoldersToCopy ){
     }
 
     robocopy.exe $Source $Destination /E /IS /NP /NFL
+    }
